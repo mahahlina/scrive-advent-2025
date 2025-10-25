@@ -11,7 +11,7 @@ export function FrostyIceCube({ day }: FrostyIceCubeProps) {
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: 'url("/ice cube.png")',
+          backgroundImage: 'url("/resources/ice cube.png")',
           backgroundSize: 'contain',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
