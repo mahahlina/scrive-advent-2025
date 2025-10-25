@@ -1,0 +1,131 @@
+.app {
+  text-align: center;
+  color: white;
+}
+
+.app h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  justify-items: center;
+}
+
+.day-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.day {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 248, 255, 0.8) 50%, rgba(230, 240, 255, 0.9) 100%);
+  color: #1a365d;
+  border-radius: 15px;
+  padding: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 8px 32px rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(135, 206, 250, 0.3);
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.day::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+.day:hover::before {
+  opacity: 1;
+  animation: shimmer 1.5s ease-in-out;
+}
+
+.day:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 12px 40px rgba(31, 38, 135, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 30px rgba(135, 206, 250, 0.5);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.9) 50%, rgba(230, 240, 255, 0.95) 100%);
+}
+
+.day:active {
+  transform: translateY(-4px) scale(1.01);
+}
+
+/* Custom sway animation for gift tag */
+@keyframes sway {
+  0%, 100% {
+    transform: rotate(-2deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+  }
+  75% {
+    transform: rotate(1deg);
+  }
+}
+
+/* Shimmer animation for ice cubes */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+/* Realistic Pickaxe cursor */
+.pickaxe-cursor {
+  cursor: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8IS0tIFBpY2theGUgaGVhZCAobWV0YWwpIC0tPgogIDxwYXRoIGQ9Ik0zMiA0TDI4IDhMMjQgMTJMMjAgMTZMMTYgMjBMMTIgMjRMOCAyOEw0IDMyTDggMzZMMTIgMzJMMTYgMjhMMjAgMjRMMjQgMjBMMjggMTZMMzIgMTJMMzYgOEwzMiA0WiIgZmlsbD0iIzc4OTA5QyIvPgogIDxwYXRoIGQ9Ik0zMiA0TDI4IDhMMjQgMTJMMjAgMTZMMTYgMjBMMTIgMjRMOCAyOEw0IDMyTDggMzZMMTIgMzJMMTYgMjhMMjAgMjRMMjQgMjBMMjggMTZMMzIgMTJMMzYgOEwzMiA0WiIgZmlsbD0idXJsKCNtZXRhbEdyYWRpZW50KSIvPgogIDwhLS0gSGlnaGxpZ2h0cyAtLT4KICA8cGF0aCBkPSJNMzIgNEwyOCA4TDI0IDEyTDIwIDE2TDE2IDIwTDEyIDI0TDggMjhMNCwzMkw4LDM2TDEyLDMyTDE2LDI4TDIwLDI0TDI0LDIwTDI4LDE2TDMyLDEyTDM2LDhMMzIsNFoiIGZpbGw9InVybCgjbWV0YWxIaWdobGlnaHQpIi8+CiAgPCEtLSBQaWNrYXhlIGhhbmRsZSAod29vZCkgLS0+CiAgPHBhdGggZD0iTTE2IDIwTDEyIDI0TDggMjhMNCwzMkw4LDM2TDEyLDQwTDE2LDQ0TDIwLDQ4TDI0LDQ0TDI4LDQwTDMyLDM2TDM2LDMyTDMyLDI4TDI4LDI0TDI0LDIwTDIwLDE2TDE2LDIwWiIgZmlsbD0iIzhCNDUxMyIvPgogIDxwYXRoIGQ9Ik0xNiAyMEwxMiAyNEw4IDI4TDQsMzJMOCwzNkwxMiw0MEwxNiw0NEwyMCw0OEwyNCw0NEwyOCw0MEwzMiwzNkwzNiwzMkwzMiwyOEwyOCwyNEwyNCwyMEwyMCwxNkwxNiwyMFoiIGZpbGw9InVybCgjd29vZEdyYWRpZW50KSIvPgogIDwhLS0gR3JhZGllbnRzIC0tPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtZXRhbEdyYWRpZW50IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNCMEJFQzUiIHN0b3Atb3BhY2l0eT0iMC42Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjNzg5MDlDIiBzdG9wLW9wYWNpdHk9IjAuOCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM1NDY4NzMiIHN0b3Atb3BhY2l0eT0iMC45Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJtZXRhbEhpZ2hsaWdodCIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRkZGRkZGIiBzdG9wLW9wYWNpdHk9IjAuNCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iI0ZGRkZGRiIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJ3b29kR3JhZGllbnQiIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0E1NjQyQSIgc3RvcC1vcGFjaXR5PSIwLjgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiM4QjQ1MTMiIHN0b3Atb3BhY2l0eT0iMC45Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzZGMzYxMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KPC9zdmc+"), 16 16, auto !important;
+}
+
+/* Pickaxe button styles */
+.pickaxe-button {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border: 2px solid #92400e;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  transition: all 0.3s ease;
+}
+
+.pickaxe-button:hover {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+}
+
+.pickaxe-button.active {
+  background: linear-gradient(135deg, #b45309 0%, #92400e 100%);
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5), 0 0 20px rgba(245, 158, 11, 0.3);
+}
