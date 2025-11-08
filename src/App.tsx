@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { GiftTag } from './GiftTag'
+import { NameEntryModal } from './NameEntryModal'
+import { getCookie, setCookie, getFirstOpener, setFirstOpener } from './utils/cookies'
 import './App.css'
 
 interface DayData {
@@ -18,6 +20,8 @@ declare global {
 function App() {
   const [days, setDays] = useState<DayData[]>([])
   const [loading, setLoading] = useState(true)
+  const [userName, setUserName] = useState<string | null>(null)
+  const [showNameModal, setShowNameModal] = useState(false)
 
   useEffect(() => {
     fetch('/advent/data.json')
@@ -30,6 +34,17 @@ function App() {
         console.error('Error loading data.json', err)
         setLoading(false)
       })
+  }, [])
+
+  // Check for stored user name on mount
+  useEffect(() => {
+    const storedName = getCookie('advent_user_name')
+    if (storedName) {
+      setUserName(storedName)
+      setShowNameModal(false)
+    } else {
+      setShowNameModal(true)
+    }
   }, [])
 
   // Initialize snowflakes effect
@@ -58,8 +73,39 @@ function App() {
     checkSnow()
   }, [])
 
-  const handleDayClick = (content: string) => {
-    alert(content)
+  const handleNameSubmit = (name: string) => {
+    setUserName(name)
+    setCookie('advent_user_name', name, 30)
+    setShowNameModal(false)
+  }
+
+  const handleDayClick = (day: number, content: string, title: string) => {
+    if (!userName) {
+      setShowNameModal(true)
+      return
+    }
+
+    // Check if this is the first time this day is being opened
+    const firstOpener = getFirstOpener(day)
+    const isFirstTime = !firstOpener
+
+    if (isFirstTime) {
+      // Record this user as the first opener
+      setFirstOpener(day, userName)
+    }
+
+    // Build message with first opener info
+    let message = `${title}\n\n${content}`
+
+    if (isFirstTime) {
+      message = `🎉 Congratulations! You're the first to open day ${day}!\n\n${message}`
+    } else if (firstOpener !== userName) {
+      message = `Day ${day} was first opened by: ${firstOpener}\n\n${message}`
+    } else {
+      message = `You were the first to open day ${day}!\n\n${message}`
+    }
+
+    alert(message)
   }
 
   if (loading) {
@@ -68,8 +114,23 @@ function App() {
 
   return (
     <div className="app">
+      {/* Name Entry Modal */}
+      {showNameModal && <NameEntryModal onNameSubmit={handleNameSubmit} />}
+
       {/* Gift Tag Component - Fixed in top right corner */}
       <GiftTag />
+
+      {/* User Name Display - Top left corner */}
+      {userName && (
+        <div className="fixed top-4 left-4 z-30">
+          <div className="bg-gradient-to-br from-white/95 to-gray-50/95 backdrop-blur-sm rounded-xl shadow-lg px-6 py-3 border-2 border-white/50">
+            <p className="text-sm text-gray-600 mb-1">Welcome,</p>
+            <p className="text-lg font-semibold" style={{ color: '#DC2626' }}>
+              {userName}
+            </p>
+          </div>
+        </div>
+      )}
 
       <div className="flex items-start justify-between mb-8 mt-16">
         {/* Title Section */}
@@ -125,7 +186,7 @@ function App() {
             <div
               key={day.day}
               className="day-cell cursor-pointer transition-all duration-300 hover:scale-105"
-              onClick={() => handleDayClick(day.content)}
+              onClick={() => handleDayClick(day.day, day.content, day.title)}
               style={{
                 width: `${width}px`,
                 height: `${height}px`,
