@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { GiftTag } from './GiftTag'
-import { FrostyIceCube } from './FrostyIceCube'
 import './App.css'
 
 interface DayData {
@@ -19,7 +18,6 @@ declare global {
 function App() {
   const [days, setDays] = useState<DayData[]>([])
   const [loading, setLoading] = useState(true)
-  const [pickaxeMode, setPickaxeMode] = useState(false)
 
   useEffect(() => {
     fetch('/advent/data.json')
@@ -64,97 +62,80 @@ function App() {
     alert(content)
   }
 
-  const togglePickaxeMode = () => {
-    setPickaxeMode(!pickaxeMode)
-  }
-
   if (loading) {
     return <div>Loading...</div>
   }
 
   return (
-    <div className={`app ${pickaxeMode ? 'pickaxe-cursor' : ''}`}>
-      {/* Pickaxe Button */}
-      <div className="fixed top-4 right-4 z-50">
-        <button
-          onClick={togglePickaxeMode}
-          className={`pickaxe-button px-4 py-2 rounded-lg font-bold text-white ${
-            pickaxeMode ? 'active' : ''
-          }`}
-        >
-          ⛏️ {pickaxeMode ? 'Pickaxe Active!' : 'Get Pickaxe'}
-        </button>
-      </div>
+    <div className="app">
+      {/* Gift Tag Component - Fixed in top right corner */}
+      <GiftTag />
 
       <div className="flex items-start justify-between mb-8 mt-16">
         {/* Title Section */}
         <div className="flex-1 text-center">
-          <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold mb-4 relative" style={{
-            color: '#FFD700',
-            textShadow: '4px 4px 8px rgba(0,0,0,0.8), 0 0 20px rgba(255,215,0,0.5)',
-            fontFamily: '"Brush Script MT", "Lucida Handwriting", "Kalam", "Caveat", cursive',
-            fontWeight: '900',
-            letterSpacing: '2px',
-            transform: 'rotate(-1deg)',
-            filter: 'drop-shadow(0 0 10px rgba(255,215,0,0.3))'
+          <h1 className="flex items-center justify-center gap-4 text-6xl md:text-7xl lg:text-8xl font-semibold mb-2" style={{
+            color: '#ffffff',
+            textShadow: '0 2px 8px rgba(0,0,0,0.3)',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            letterSpacing: '0.05em',
+            fontWeight: '600'
           }}>
-            Scrive{' '}
-            <span className="inline-block relative">
-              <span style={{
-                textDecoration: 'line-through',
-                textDecorationStyle: 'wavy',
-                textDecorationColor: '#DC2626',
-                textDecorationThickness: '4px',
-                opacity: 0.7,
-                fontSize: '0.9em'
-              }}>
-                Advent
-              </span>
-              <span style={{
-                position: 'absolute',
-                top: '-2.5rem',
-                left: '0',
-                color: '#FF6B6B',
-                fontSize: '0.9em',
-                fontStyle: 'italic',
-                transform: 'rotate(-4deg)',
-                textShadow: '3px 3px 6px rgba(0,0,0,0.6), 0 0 15px rgba(255,107,107,0.4)',
-                fontWeight: '900',
-                fontFamily: '"Brush Script MT", "Lucida Handwriting", "Kalam", "Caveat", cursive',
-                letterSpacing: '1px',
-                filter: 'drop-shadow(0 0 8px rgba(255,107,107,0.3))'
-              }}>
-                Winter
-              </span>
-            </span>{' '}
-            <span className="inline-block" style={{ paddingLeft: '0.5em' }}>
-              Calendar 2025
-            </span>
+            <img
+              src="/resources/scrive.webp"
+              alt="Scrive"
+              className="inline-block"
+              style={{
+                height: '1.2em',
+                width: 'auto',
+                filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))'
+              }}
+            />
+            <span>Winter Calendar</span>
           </h1>
-          <div className="text-lg md:text-xl text-white/90 font-light tracking-wide" style={{
-            textShadow: '2px 2px 4px rgba(0,0,0,0.6)'
+          <div className="text-2xl md:text-3xl lg:text-4xl text-white/80 font-light tracking-wide" style={{
+            textShadow: '0 1px 4px rgba(0,0,0,0.3)',
+            fontWeight: '300',
+            letterSpacing: '0.1em',
+            marginLeft: '2rem'
           }}>
-            ✨ A magical winter journey awaits ✨
+            2025
           </div>
         </div>
 
-        {/* Gift Tag Component - Moved to the right */}
-        <div className="ml-8">
-          <GiftTag />
-        </div>
       </div>
 
       {/* Calendar */}
       <div id="calendar" className="calendar">
-        {days.map(day => (
-          <div
-            key={day.day}
-            className="day-container cursor-pointer transition-all duration-300 hover:scale-105"
-            onClick={() => handleDayClick(day.content)}
-          >
-            <FrostyIceCube day={day.day} />
-          </div>
-        ))}
+        {days.map((day) => {
+          // Generate consistent random values based on day number for reproducibility
+          const seed = day.day * 12345;
+          const random1 = Math.sin(seed) * 10000;
+          const random2 = Math.sin(seed * 2) * 10000;
+          const random3 = Math.sin(seed * 3) * 10000;
+
+          // Random width between 100px and 180px
+          const width = 100 + (Math.abs(random1 % 1000) / 1000) * 80;
+          // Random height between 80px and 160px
+          const height = 80 + (Math.abs(random2 % 1000) / 1000) * 80;
+          // Random border radius between 8px and 20px
+          const borderRadius = 8 + (Math.abs(random3 % 1000) / 1000) * 12;
+
+          return (
+            <div
+              key={day.day}
+              className="day-cell cursor-pointer transition-all duration-300 hover:scale-105"
+              onClick={() => handleDayClick(day.content)}
+              style={{
+                width: `${width}px`,
+                height: `${height}px`,
+                borderRadius: `${borderRadius}px`,
+              }}
+            >
+              <div className="day-number">{day.day}</div>
+            </div>
+          );
+        })}
       </div>
     </div>
   )

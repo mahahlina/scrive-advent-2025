@@ -3,23 +3,50 @@ import { Gift } from 'lucide-react';
 
 export function GiftTag() {
   return (
-    <div className="flex items-center justify-center mb-8">
-      {/* Gift tag shape */}
-      <div className="relative transform hover:scale-105 transition-all duration-300 animate-bounce" style={{
-        animation: 'sway 3s ease-in-out infinite'
-      }}>
-        {/* String/ribbon with enhanced styling */}
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-1 h-10 rounded-full shadow-lg" style={{
-          backgroundColor: '#8B4513',
-          background: 'linear-gradient(45deg, #8B4513, #A0522D, #8B4513)',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.3)'
+    <div className="fixed top-4 right-4 z-40 flex flex-col items-end">
+      {/* Branch image - positioned in top right corner */}
+      <div
+        className="relative mb-2"
+        style={{
+          width: '400px',
+          height: '240px',
+          transform: 'rotate(-20deg)',
+          filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
+        }}
+      >
+        <img
+          src="/resources/branch.png"
+          alt="Christmas tree branch"
+          className="w-full h-full object-contain"
+          style={{
+            mixBlendMode: 'screen',
+            filter: 'brightness(1.1) contrast(1.1)'
+          }}
+        />
+      </div>
+
+      {/* Gift tag shape - hanging from branch */}
+      <div
+        className="relative transform hover:scale-105 transition-all duration-300"
+        style={{
+          animation: 'pendulum 4s ease-in-out infinite',
+          marginTop: '-120px',
+          marginRight: '60px',
+          transformOrigin: 'top center'
+        }}
+      >
+        {/* Simple string */}
+        <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-0.5 h-6" style={{
+          background: 'linear-gradient(180deg, #8B4513 0%, #A0522D 50%, #8B4513 100%)',
+          boxShadow: '0 1px 2px rgba(0,0,0,0.2)',
+          borderRadius: '1px'
         }} />
 
         {/* Tag body with enhanced styling - Made smaller */}
         <div className="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-2xl p-6 pt-8 pb-6 relative border-2 border-gray-200" style={{
           boxShadow: '0 8px 20px rgba(0,0,0,0.15), 0 3px 8px rgba(0,0,0,0.1)',
           background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-          transform: 'scale(0.8)'
+          transform: 'scale(0.5)'
         }}>
           {/* Hole at top for string with enhanced styling */}
           <div className="absolute top-3 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-white shadow-inner" style={{
