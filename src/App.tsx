@@ -24,7 +24,7 @@ function App() {
   const [showNameModal, setShowNameModal] = useState(false)
 
   useEffect(() => {
-    fetch('/advent/data.json')
+    fetch('./advent/data.json')
       .then(response => response.json())
       .then(data => {
         setDays(data)
@@ -143,7 +143,7 @@ function App() {
             fontWeight: '600'
           }}>
             <img
-              src="/resources/scrive.webp"
+              src="./resources/scrive.webp"
               alt="Scrive"
               className="inline-block"
               style={{

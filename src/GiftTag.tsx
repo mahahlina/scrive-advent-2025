@@ -15,7 +15,7 @@ export function GiftTag() {
         }}
       >
         <img
-          src="/resources/branch.png"
+          src="./resources/branch.png"
           alt="Christmas tree branch"
           className="w-full h-full object-contain"
           style={{
@@ -64,7 +64,7 @@ export function GiftTag() {
               boxShadow: '0 3px 6px rgba(0,0,0,0.1)'
             }}>
               <img
-                src="/resources/scrive.webp"
+                src="./resources/scrive.webp"
                 alt="Scrive Logo"
                 className="max-w-full max-h-full object-contain filter drop-shadow-sm"
               />
