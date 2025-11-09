@@ -1,6 +1,6 @@
 {
   "name": "scrive-advent-2025",
-  "homepage": "https://mahahlina.github.io/scrive-advent-2025/",
+  "homepage": "https://mahahlina.github.io/scrive-winter-2025/",
   "version": "1.0.0",
   "description": "Scrive Winter Calendar 2025",
   "main": "index.js",
@@ -9,7 +9,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d docs"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "lucide-react": "^0.263.1",
