@@ -15,7 +15,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url('/resources/snowman.webp') center center / cover no-repeat fixed;
+  background: url('/scrive-advent-2025/resources/snowman.webp') center center / cover no-repeat fixed;
   min-height: 100vh;
   padding: 20px;
   position: relative;
