@@ -15,7 +15,7 @@ export function GiftTag() {
         }}
       >
         <img
-          src="./resources/branch.png"
+          src="./assests/resources/branch.png"
           alt="Christmas tree branch"
           className="w-full h-full object-contain"
           style={{
